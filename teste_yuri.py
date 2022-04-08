@@ -1,22 +1,25 @@
 import re
+from turtle import position
+global MAZE, PILE
+MAZE = []
+PILE = []
 
-def print_map(lab_map: list) -> None:
-    for line in lab_map:
+def read_map_file() -> list:
+
+    with open('map.txt', 'r') as file:
+        for line in file:
+            MAZE.append(line.strip())
+
+    return MAZE
+
+def print_map() -> None:
+    for line in MAZE:
         print(line)
 
     return None
 
 
-def read_map_file() -> list:
-    lab_map = []
-    with open('map.txt', 'r') as file:
-        for line in file:
-            lab_map.append(line.strip())
-
-    return lab_map
-
-
-def start_position(lab_map: list) -> tuple:
+def start_position() -> list:
     coordinate_pattern = re.compile("[0-9][,][0-1]?[0-9]")
     
     # validando formato
@@ -27,12 +30,40 @@ def start_position(lab_map: list) -> tuple:
         
         # formato ok? validando espaço vazio
         else:
-            coordinate = tuple(map(int, (start_position.split(","))))
-            if lab_map[coordinate[0]][coordinate[1]] == " ":
+            coordinate = list(map(int, (start_position.split(","))))
+            if MAZE[coordinate[0]][coordinate[1]] == " ":
                 return coordinate
             else:
                 print("Entrada inválida: local é uma parede. Tente de novo.")
         
-    return tuple(coordinate)
+    return list(coordinate)
 
-print(start_position(read_map_file()))
+def verify_surrounds() -> list:
+    coordinate  = PILE[-1]
+    rat_up = (coordinate[0] -1, coordinate[1])
+    rat_right = (coordinate[0], coordinate[1] + 1)
+    rat_down = (coordinate[0] +1, coordinate[1])
+    rat_left = (coordinate[0], coordinate[1] - 1)
+    directions = [rat_up, rat_right, rat_down, rat_left]
+
+    #validar direções
+    
+    for destination in directions:
+        if MAZE[destination[0]][destination[1]] == " ":
+            return destination
+
+def move() -> None:
+    position  = PILE[-1]
+    destination = verify_surrounds()
+    MAZE[destination[0]][destination[1]] = "X"
+    
+
+read_map_file()
+PILE.append(start_position())
+
+while True:
+    print(PILE)
+    print_map()
+    move()
+
+    break
