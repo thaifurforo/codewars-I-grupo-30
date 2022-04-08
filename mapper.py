@@ -18,22 +18,22 @@ def read_map_file() -> list:
     return map
 
 
-"""
-Yuri - opinião sobre alteração:
 
-def print_map(lab_map: list) -> None:
-    for line in lab_map:
+
+#opinião sobre mudanças:
+def read_map_file() -> list:
+    global MAZE
+    MAZE = []
+
+    with open('map.txt', 'r') as file:
+        for line in file:
+            MAZE.append(line.strip())
+
+    return MAZE
+
+def print_map() -> None:
+    for line in MAZE:
         print(line)
 
     return None
 
-
-def read_map_file() -> list:
-    lab_map = []
-    with open('map.txt', 'r') as file:
-        for line in file:
-            lab_map.append(line.strip())
-
-    return lab_map
-
-"""
