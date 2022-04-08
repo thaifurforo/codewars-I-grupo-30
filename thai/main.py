@@ -1,4 +1,4 @@
-from thai.start_position import *
+from start_position import *
 from mapper import *
 from move import *
 
