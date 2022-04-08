@@ -1,7 +1,6 @@
 from start_position import *
 from mapper import *
 from move import *
-
 """
 Project name suggestion: A Maze Game
 """
