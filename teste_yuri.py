@@ -1,5 +1,4 @@
 import re
-from turtle import position
 global MAZE, PILE
 MAZE = []
 PILE = []
@@ -31,7 +30,10 @@ def start_position() -> list:
         # formato ok? validando espaço vazio
         else:
             coordinate = list(map(int, (start_position.split(","))))
-            if MAZE[coordinate[0]][coordinate[1]] == " ":
+            if MAZE[coordinate[0]][coordinate[1]] == " ":               
+                line_position = list(MAZE[coordinate[0]])
+                line_position[coordinate[1]] = "X"
+                MAZE[coordinate[0]] = "".join(line_position)
                 return coordinate
             else:
                 print("Entrada inválida: local é uma parede. Tente de novo.")
@@ -53,26 +55,27 @@ def verify_surrounds() -> list:
             return destination
 
 def move() -> None:
-    position  = PILE[-1]
-    line_position = list(MAZE[position[0]])
-    line_position[position[1]] = "."
-    MAZE[position[0]] = "".join(line_position)
+    rat_position  = PILE[-1]
+    line_position = list(MAZE[rat_position[0]])
+    line_position[rat_position[1]] = "."
+    MAZE[rat_position[0]] = "".join(line_position)
 
-    destination = verify_surrounds()
+    rat_destination = verify_surrounds()
 
     #MAZE[destination[0]][destination[1]] = "X"
-    line_destination = list(MAZE[destination[0]])
-    line_destination[destination[1]] = "X"
-    MAZE[destination[0]] = "".join(line_destination)
-    PILE.append(destination)
+    line_destination = list(MAZE[rat_destination[0]])
+    line_destination[rat_destination[1]] = "X"
+    MAZE[rat_destination[0]] = "".join(line_destination)
+    PILE.append(rat_destination)
     
     
 
 read_map_file()
 PILE.append(start_position())
 
+
 #while True:
-for _ in range(5):
+for _ in range(4):
     print("Pilha: ", PILE)
     print_map()
     move()
