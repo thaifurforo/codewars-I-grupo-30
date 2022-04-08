@@ -24,7 +24,7 @@ def start_position() -> list:
     
     # validando formato
     while True:
-        start_position = input("Digite a posição inicial. Linha (0-9) x Coluna (0-19) Ex: 5,5 ").strip()
+        start_position = "1,2" #input("Digite a posição inicial. Linha (0-9) x Coluna (0-19) Ex: 5,5 ").strip()
         if not coordinate_pattern.fullmatch(start_position):
             print("Entrada inválida. Tente de novo.")
         
@@ -40,10 +40,10 @@ def start_position() -> list:
 
 def verify_surrounds() -> list:
     coordinate  = PILE[-1]
-    rat_up = (coordinate[0] -1, coordinate[1])
-    rat_right = (coordinate[0], coordinate[1] + 1)
-    rat_down = (coordinate[0] +1, coordinate[1])
-    rat_left = (coordinate[0], coordinate[1] - 1)
+    rat_up = [coordinate[0] -1, coordinate[1]]
+    rat_right = [coordinate[0], coordinate[1] + 1]
+    rat_down = [coordinate[0] +1, coordinate[1]]
+    rat_left = [coordinate[0], coordinate[1] - 1]
     directions = [rat_up, rat_right, rat_down, rat_left]
 
     #validar direções
@@ -54,16 +54,26 @@ def verify_surrounds() -> list:
 
 def move() -> None:
     position  = PILE[-1]
+    line_position = list(MAZE[position[0]])
+    line_position[position[1]] = "."
+    MAZE[position[0]] = "".join(line_position)
+
     destination = verify_surrounds()
-    MAZE[destination[0]][destination[1]] = "X"
+
+    #MAZE[destination[0]][destination[1]] = "X"
+    line_destination = list(MAZE[destination[0]])
+    line_destination[destination[1]] = "X"
+    MAZE[destination[0]] = "".join(line_destination)
+    PILE.append(destination)
+    
     
 
 read_map_file()
 PILE.append(start_position())
 
-while True:
-    print(PILE)
+#while True:
+for _ in range(5):
+    print("Pilha: ", PILE)
     print_map()
     move()
-
-    break
+    print()
