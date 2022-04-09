@@ -1,2 +1,3 @@
 *.ini
 teste_yuri.py
+__pycache__/

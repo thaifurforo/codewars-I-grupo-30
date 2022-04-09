@@ -1,16 +1,20 @@
 from start_position import *
-from verify_surrounds import *
 from mapper import *
 from move import *
-from verify_exit import *
+
 
 """
 Project name suggestion: A Maze Game
 """
 
+moves_stack = []
+
 
 def main():
-    pass
+    maze = read_map_file()
+    current_position = start_position(maze)
+    moves_stack = [current_position]
+    move(current_position, maze, moves_stack)
 
 
 if (__name__ == '__main__'):
