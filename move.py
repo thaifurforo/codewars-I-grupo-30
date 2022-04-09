@@ -1,80 +1,69 @@
+from random import choice
 from mapper import print_map
 
 
-def verify_surrounds(current_position: tuple, maze: list) -> list:
-    maze_height = len(maze)
-    maze_width = len(maze[0])
+def find_exit(current_position: tuple, maze: list) -> None:
+    """
+    Makes the robot try to find the exit of the Maze.
+    """
+    moves_stack = [current_position]
 
-    position_north = [current_position[0] - 1, current_position[1]]
-    position_south = [current_position[0] + 1, current_position[1]]
-    position_east = [current_position[0], current_position[1] + 1]
-    position_west = [current_position[0], current_position[1] - 1]
+    while True:
 
-    if not (position_north[0] <= maze_height and position_north[0] >= 0):
-        position_north = [0, 0]
-    if not (position_south[0] <= maze_height and position_south[0] >= 0):
-        position_south = [0, 0]
-    if not (position_east[1] <= maze_width and position_east[1] >= 0):
-        position_east = [0, 0]
-    if not (position_west[1] <= maze_width and position_west[1] >= 0):
-        position_west = [0, 0]
+        possible_destinations = verify_surrounds(current_position, maze)
 
-    surround_pos = [position_north, position_south,
-                    position_east, position_west]
+        if possible_destinations and possible_destinations[0] == 'Win':
+            move(current_position, possible_destinations[1], maze)
+            print("Vitória!")
+            break
 
-    surround_chars = [maze[surround_pos[0][0]][surround_pos[0][1]], maze[surround_pos[1][0]][surround_pos[1]
-                                                                                             [1]], maze[surround_pos[2][0]][surround_pos[2][1]], maze[surround_pos[3][0]][surround_pos[3][1]]]
+        elif possible_destinations:
+            destination = choice(possible_destinations)
+            move(current_position, destination, maze)
+            moves_stack.append(destination)
+            current_position = destination
 
-    return surround_pos, surround_chars
-
-
-def move(current_position: tuple, maze: list, moves_stack: list):
-    valid_position = False
-
-    surround_position, surround_chars = verify_surrounds(
-        current_position, maze)
-
-    index = 0
-
-    while valid_position == False and index <= 3:
-        testing_position = surround_chars[index]
-        if testing_position == 'S':
-            maze[surround_position[index][0]][surround_position[index][1]] = 'X'
-            maze[current_position[0]][current_position[1]] = '.'
-            valid_position = True
-            print_map(maze)
-            print('Vitória')
-        elif testing_position == ' ':
-            valid_position = True
-            maze[surround_position[index][0]][surround_position[index][1]] = 'X'
-            maze[current_position[0]][current_position[1]] = '.'
-            current_position = surround_position[index]
-            moves_stack.append(current_position)
-            print_map(maze)
-            move(current_position, maze, moves_stack)
-            return None
         else:
-            index += 1
+            last_position = moves_stack.pop()
+            move(current_position, last_position, maze)
+            current_position = last_position
 
-    if not valid_position:
-        possible_step = any(
-            [True if char == ' ' else False for char in surround_chars])
-        pos = len(moves_stack)
-        index = -1
-        while not possible_step:
-            last_position = moves_stack[index]
-            surround_chars = verify_surrounds(last_position, maze)[1]
-            possible_step = any(
-                [True if char == ' ' else False for char in surround_chars])
-            maze[last_position[0]][last_position[1]] = 'X'
-            if index != -1:
-                print_map(maze)
-            maze[last_position[0]][last_position[1]] = '.'
-            index -= 1
 
-        moves_stack[:pos+index]
+def move(current_position: tuple, destination: tuple, maze: list) -> list:
+    """
+    Moves the robot through the maze.
+    """
+    maze[current_position[0]][current_position[1]] = '.'
+    maze[destination[0]][destination[1]] = 'X'
 
-        maze[last_position[0]][last_position[1]] = 'X'
-        maze[moves_stack[-1][0]][moves_stack[-1][1]] = '.'
+    print_map(maze)
 
-        move(last_position, maze, moves_stack)
+    return maze
+
+
+def verify_surrounds(current_position: tuple, maze: list) -> list:
+    """
+    Verifies possible next steps to the robot.
+    """
+    north = (current_position[0] - 1, current_position[1])
+    south = (current_position[0] + 1, current_position[1])
+    east = (current_position[0], current_position[1] + 1)
+    west = (current_position[0], current_position[1] - 1)
+
+    positions = {
+        north: maze[north[0]][north[1]],
+        south: maze[south[0]][south[1]],
+        east: maze[east[0]][east[1]],
+        west: maze[west[0]][west[1]]
+    }
+
+    possible_destinations = []
+
+    for position, character in positions.items():
+        # If the robot finds the Exit, that will be the only possible destination
+        if character == 'S':
+            return ['Win', position] 
+        elif character == ' ':
+            possible_destinations.append(position)   
+
+    return possible_destinations
