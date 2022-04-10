@@ -60,20 +60,22 @@ def move(current_position: tuple, maze: list, moves_stack: list):
         possible_step = any(
             [True if char == ' ' else False for char in surround_chars])
         pos = len(moves_stack)
-        index = -1
+        stuck_position = moves_stack[-1]
+        j = -2
         while not possible_step:
-            last_position = moves_stack[index]
+            if j == -2:
+                maze[stuck_position[0]][stuck_position[1]] = '.'
+            last_position = moves_stack[j]
             surround_chars = verify_surrounds(last_position, maze)[1]
             possible_step = any(
                 [True if char == ' ' else False for char in surround_chars])
             maze[last_position[0]][last_position[1]] = 'X'
-            if index != -1:
-                print_map(maze)
+            print_map(maze)
             maze[last_position[0]][last_position[1]] = '.'
-            index -= 1
+            if not possible_step:
+                j -= 1
 
-        moves_stack[:pos+index]
-
+        moves_stack = moves_stack[:pos+j+1]
         maze[last_position[0]][last_position[1]] = 'X'
         maze[moves_stack[-1][0]][moves_stack[-1][1]] = '.'
 

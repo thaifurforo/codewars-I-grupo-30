@@ -25,7 +25,7 @@ def read_map_file() -> list:
     """
     Reads the file with the map.
     """
-    with open('map.txt', 'r') as file:
+    with open('labirinto_2.txt', 'r') as file:
         maze = [[char for char in line] for line in file]
     for line in maze:
         if len(line) <= 20:
