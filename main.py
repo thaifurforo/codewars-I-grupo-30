@@ -10,20 +10,23 @@ Equipe: Igor Gabryell Mendes Melo
         Vítor Mateus de Brito
         Yuri Aoyama da Costa
 '''
+
 import os
-from turtle import position
 from mapper import *
 from maze_generator import *
-from start_position import *
 from move import *
+from start_position import *
 
 
 def main():
     '''
     Função principal do desafio do labirinto.
     Nela o jogador deverá escolher um nível para jogar, sendo as opções: 3 ou 4.
-    Caso opte pelo nível 3, o jogo irá rodar com o mapa padrão armazenado no arquivo 'map.txt', e o usuário deverá escolher a posição inicial no labirinto para o robô começar a andar.
-    Caso opte pelo nível 4, o usuário deverá escolher a altura e a largura do labirinto a ser gerado automaticamente, e posteriormente poderá selecionar se quer escolher a posição inicial no labirinto para o robô começar a andar, ou se prefere que seja gerada uma posição inicial aleatória no mapa.
+    Caso opte pelo nível 3, o jogo irá rodar com o mapa padrão armazenado no arquivo 'map.txt', e o usuário deverá 
+    escolher a posição inicial no labirinto para o robô começar a andar.
+    Caso opte pelo nível 4, o usuário deverá escolher a altura e a largura do labirinto a ser gerado automaticamente, 
+    e posteriormente poderá selecionar se quer escolher a posição inicial no labirinto para o robô começar a andar, 
+    ou se prefere que seja gerada uma posição inicial aleatória no mapa.
     '''
     os.system('cls')
     print('*'*49 + '\nBEM VINDO AO JOGO: "THE ALMOST ONE LINE SOLUTION"\n' +
@@ -49,7 +52,7 @@ def main():
             'Como o jogo deve começar?\nDigite 1 para selecionar a coordenada inicial no labirinto\nDigite 2 para que o computador selecione uma posição inicial aleatória\nDigite sua opção: ')
         while position != '1' and position != '2':
             position = input('\nOpção inválida!\nComo o jogo deve começar?\nDigite 1 para selecionar a coordenada inicial no labirinto\nDigite 2 para que o computador selecione uma posição inicial aleatória\nDigite sua opção: ')
-        if position == 1:
+        if position == '1':
             current_position = user_start_position(maze)
         else:
             current_position = random_start_position(maze)
@@ -58,3 +61,4 @@ def main():
 
 if (__name__ == '__main__'):
     main()
+

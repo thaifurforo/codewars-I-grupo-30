@@ -1,5 +1,5 @@
 '''
-Módulo que gera um labirinto de forma automática e aleatória
+Módulo que gera um labirinto de forma automática e aleatória.
 '''
 
 from random import choice, randint, shuffle
@@ -180,3 +180,4 @@ def generate_maze(height: int, width: int) -> list:
     maze = maze_exit(maze)
 
     return maze
+

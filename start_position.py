@@ -1,5 +1,5 @@
 '''
-Módulo que gera uma posição inicial dentro do mapa do labirinto
+Módulo que gera uma posição inicial dentro do mapa do labirinto.
 '''
 
 import re
@@ -9,8 +9,10 @@ from random import randrange
 def user_start_position(maze_map: list) -> tuple:
     '''
     Recebe uma posição inicial do usuário, validando para que seja em formato válido, uma coordenada possível dentro do mapa do labirinto, e não seja parede
+
     Args:
         maze_map (list): Mapa do labirinto em formato de lista de listas
+
     Returns:
         (tuple): Tupla com as coordenadas da posição inicial determinada pelo usuário
     '''
@@ -35,8 +37,10 @@ def user_start_position(maze_map: list) -> tuple:
 def random_start_position(maze_map: list) -> tuple:
     '''
     Seleciona um ponto inicial válido dentro do mapa, que seja igual a '0' ou igual a ' '
+
     Args:
         maze_map (list): Mapa do labirinto em formato de lista de listas
+        
     Returns:
         (tuple): Tupla com as coordenadas da posição inicial determinada aleatoriamente pela função
     '''
@@ -47,3 +51,4 @@ def random_start_position(maze_map: list) -> tuple:
             return coordinate
         else:
             return random_start_position(maze_map)
+

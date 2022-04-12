@@ -1,11 +1,10 @@
 '''
 Módulo que gera a movimentação do robô apenas pelos espaços válidos, de forma aleatória, impedindo a repetição de caminhos,
-exceto nos casos em que ele estiver encurralado (nesse caso, necessariamente retornando pelos últimos passos até que encontre um ponto no qual haja um espaço válido).
-
+exceto nos casos em que ele estiver encurralado (nesse caso, necessariamente retornando pelos últimos passos até que encontre 
+um ponto no qual haja um espaço válido).
 '''
 
 from random import choice
-
 from mapper import print_map
 
 
@@ -47,10 +46,12 @@ def find_exit(current_position: tuple, maze: list) -> None:
 def move(current_position: tuple, destination: tuple, maze: list) -> list:
     """
     Movimenta o robô pelo labirinto.
+
     Args: 
         current_position (tuple): indica a posição atual do robô, posição inicial
         destination (tuple): indica a próxima posição, posição final
         maze (list): modelo do labirinto em formato de lista
+        
     Returns: (list) labirinto atualizado como uma lista
     """
     maze[current_position[0]][current_position[1]] = '.'
