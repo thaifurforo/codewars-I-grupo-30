@@ -2,5 +2,4 @@
 /código[s] Code Wars I - Grupo 30
 
 Desafio Labirinto do Bootcamp de Python /código[s] da Stone
-
-Iniciando pelo nível 3
+Nível 4
