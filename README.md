@@ -16,8 +16,8 @@ Stone e How Bootcamps :green_heart: :purple_heart:
   <li><a href="https://github.com/VitorMath" target="_blank">Vítor Mateus de Brito</a></li>
   <li><a href="https://github.com/YuriAoyamaSE" target="_blank">Yuri Aoyama da Costa</a></li>
 </ul>
+<br>
 
-#
 ## :space_invader: Modos de jogo
 
 ### :round_pushpin:	Nível 3
@@ -38,8 +38,6 @@ Duas opções para iniciar a movimentação do robô pelo labirinto:<br>
 
 ![Demonstração Nível 3](Nivel4_2.gif)
 </ul>
-
-#
 
 ## :mag: Observações
 <ul>
