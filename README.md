@@ -45,4 +45,6 @@ Duas opções para iniciar a movimentação do robô pelo labirinto:<br>
 <li>O símbolo <b>X</b> representa o robô em sua posição atual.</li>
 <li>O espaço em branco representa os caminhos por onde o robô ainda não passou.</li>
 <li>O símbolo <b>.</b> representa os caminhos por onde o robô já passou.</li>
+<li>O símbolo <b>S</b> representa a saída do labirinto.</li>
+
 </ul>
